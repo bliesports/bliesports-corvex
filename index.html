@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLI STUDIO</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#050505;
+    overflow-x:hidden;
+}
+
+/* Üst Menü */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:90px;
+    background:#000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    z-index:1000;
+}
+
+.left-menu{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.bli-logo{
+    height:45px;
+}
+
+.game-logo{
+    height:55px;
+}
+
+.right-menu{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.icon-btn{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#1a1a1a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.icon-btn:hover{
+    background:#00ffff;
+    color:#000;
+    box-shadow:0 0 20px #00ffff;
+}
+
+/* Hero Alanı */
+
+.hero{
+    width:100%;
+    height:100vh;
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.7)),
+    url('1000061556.jpg');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Neon Buton */
+
+.play-btn{
+    padding:22px 80px;
+    border:2px solid #00ffff;
+    background:#000;
+    color:#00ffff;
+    font-size:28px;
+    font-weight:bold;
+    text-decoration:none;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    transition:.3s;
+    box-shadow:
+        0 0 10px #00ffff,
+        0 0 30px #00ffff;
+}
+
+.play-btn:hover{
+    background:#00ffff;
+    color:#000;
+    box-shadow:
+        0 0 20px #00ffff,
+        0 0 50px #00ffff,
+        0 0 80px #00ffff;
+}
+
+@media(max-width:768px){
+
+    header{
+        height:80px;
+        padding:0 10px;
+    }
+
+    .bli-logo{
+        height:35px;
+    }
+
+    .game-logo{
+        height:40px;
+    }
+
+    .play-btn{
+        font-size:22px;
+        padding:18px 50px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="left-menu">
+        <img src="file_000000000eec720ab2516100c48b9aba.png"
+        class="bli-logo">
+
+        <img src="file_00000000879c71f79e5a56c96e4d7857.png"
+        class="game-logo">
+    </div>
+
+    <div class="right-menu">
+        <div class="icon-btn">
+            <i class="fas fa-globe"></i>
+        </div>
+
+        <div class="icon-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+</header>
+
+<section class="hero">
+
+    <a href="#" class="play-btn">
+        ÜCRETSİZ OYNA
+    </a>
+
+</section>
+
+</body>
+</html>
