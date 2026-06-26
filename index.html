@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BLI STUDIO</title>
+
+<title>CORVEX</title>
+
+<!-- FAVICON -->
+<link rel="icon"
+href="file_00000000879c71f79e5a56c96e4d7857.png">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -18,230 +23,210 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 }
 
 body{
-    background:#111;
+    background:#050505;
+    overflow-x:hidden;
 }
 
-/* Üst Menü */
+/* ÜST MENÜ */
 
-.topbar{
+header{
     width:100%;
-    height:80px;
+    height:90px;
     background:#000;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 20px;
+    padding:0 30px;
+    position:fixed;
+    top:0;
+    z-index:1000;
 }
 
 .logo{
-    height:50px;
-}
-
-.hamburger{
     width:55px;
-    height:55px;
-    border:none;
-    border-radius:18px;
-    background:#1d1d1d;
-    color:#fff;
-    font-size:24px;
-    cursor:pointer;
 }
 
-/* Açılan Menü */
+.menu-btn{
+    width:70px;
+    height:70px;
+    border:none;
+    border-radius:25px;
+    background:#1b1b1b;
+    color:white;
+    font-size:32px;
+}
 
-.menu{
+/* HERO */
+
+.hero{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,.6),
+    rgba(0,0,0,.8));
+}
+
+/* OYNA BUTONU */
+
+.play-btn{
+    background:black;
+    color:#ff00ff;
+    text-decoration:none;
+    padding:25px 70px;
+    border:2px solid #ff00ff;
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:2px;
+    box-shadow:0 0 20px #ff00ff;
+}
+
+.play-btn:hover{
+    box-shadow:
+    0 0 20px #ff00ff,
+    0 0 50px #ff00ff;
+}
+
+/* MENÜ */
+
+.mobile-menu{
     position:fixed;
     top:0;
     right:-100%;
     width:100%;
     height:100vh;
-    background:linear-gradient(180deg,#1b1b1b,#111);
+    background:#111;
+    z-index:9999;
     transition:.4s;
-    z-index:999;
     overflow-y:auto;
 }
 
-.menu.active{
+.mobile-menu.active{
     right:0;
 }
 
-/* Üst Kısım */
-
-.menu-header{
+.menu-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:25px;
+    padding:30px;
 }
 
 .menu-logo{
-    height:55px;
+    width:55px;
 }
 
 .close-btn{
-    width:60px;
-    height:60px;
+    width:70px;
+    height:70px;
     border:none;
-    border-radius:20px;
-    background:#2b2b2b;
-    color:#fff;
-    font-size:28px;
-    cursor:pointer;
-}
-
-/* Arama */
-
-.search-box{
-    margin:0 25px;
-    background:#262626;
     border-radius:25px;
-    padding:18px 20px;
-    display:flex;
-    align-items:center;
-    color:#999;
-    font-size:30px;
-}
-
-.search-box input{
-    background:none;
-    border:none;
-    outline:none;
+    background:#222;
     color:white;
-    width:100%;
-    margin-left:15px;
-    font-size:22px;
+    font-size:35px;
 }
 
-/* Menü Öğeleri */
+.search{
+    margin:0 25px;
+    background:#222;
+    border-radius:25px;
+    padding:20px;
+}
 
-.menu-items{
-    padding:30px 25px;
+.search i{
+    color:white;
+    font-size:30px;
 }
 
 .menu-item{
     color:white;
-    font-size:24px;
+    font-size:26px;
     font-weight:bold;
+    padding:30px;
     letter-spacing:2px;
-    padding:28px 0;
-    border-bottom:1px solid rgba(255,255,255,.05);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 }
-
-.menu-item i{
-    color:#888;
-}
-
-/* Oturum Aç */
 
 .login-btn{
     display:block;
-    width:calc(100% - 50px);
-    margin:40px auto;
-    background:#2c2c2c;
+    margin:30px;
+    background:#2a2a2a;
     color:white;
     text-decoration:none;
-    padding:28px;
+    padding:30px;
     border-radius:25px;
     font-size:30px;
-}
-
-.login-btn i{
-    float:right;
 }
 
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<header>
 
-    <img src="file_00000000879c71f79e5a56c96e4d7857.png"
-    class="logo">
+<img class="logo"
+src="file_00000000879c71f79e5a56c96e4d7857.png">
 
-    <button class="hamburger" onclick="openMenu()">
-        <i class="fas fa-bars"></i>
-    </button>
+<button class="menu-btn"
+onclick="openMenu()">
+<i class="fas fa-bars"></i>
+</button>
+
+</header>
+
+<section class="hero">
+
+<a href="#" class="play-btn">
+ŞİMDİ OYNA
+</a>
+
+</section>
+
+<div class="mobile-menu" id="menu">
+
+<div class="menu-top">
+
+<img class="menu-logo"
+src="file_00000000879c71f79e5a56c96e4d7857.png">
+
+<button class="close-btn"
+onclick="closeMenu()">
+<i class="fas fa-xmark"></i>
+</button>
 
 </div>
 
-<div class="menu" id="menu">
+<div class="search">
+<i class="fas fa-search"></i>
+</div>
 
-    <div class="menu-header">
+<div class="menu-item">OYUN BİLGİLERİ</div>
+<div class="menu-item">MEDYA</div>
+<div class="menu-item">HABERLER</div>
+<div class="menu-item">DESTEK</div>
+<div class="menu-item">SOSYAL MEDYA</div>
+<div class="menu-item">ESPOR</div>
+<div class="menu-item">MAĞAZA</div>
 
-        <img src="file_00000000879c71f79e5a56c96e4d7857.png"
-        class="menu-logo">
-
-        <button class="close-btn" onclick="closeMenu()">
-            <i class="fas fa-xmark"></i>
-        </button>
-
-    </div>
-
-    <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="">
-    </div>
-
-    <div class="menu-items">
-
-        <div class="menu-item">
-            OYUN BİLGİLERİ
-            <i class="fas fa-caret-down"></i>
-        </div>
-
-        <div class="menu-item">
-            MEDYA
-        </div>
-
-        <div class="menu-item">
-            HABERLER
-        </div>
-
-        <div class="menu-item">
-            DESTEK
-            <i class="fas fa-caret-down"></i>
-        </div>
-
-        <div class="menu-item">
-            SOSYAL MEDYA
-            <i class="fas fa-caret-down"></i>
-        </div>
-
-        <div class="menu-item">
-            ESPOR
-            <i class="fas fa-arrow-up-right-from-square"></i>
-        </div>
-
-        <div class="menu-item">
-            MAĞAZA
-            <i class="fas fa-arrow-up-right-from-square"></i>
-        </div>
-
-    </div>
-
-    <a href="https://accounts.bliesports.com.tr"
-       class="login-btn">
-        Oturum Aç
-        <i class="fas fa-chevron-up"></i>
-    </a>
+<a class="login-btn"
+href="https://account.bliesports.com.tr">
+Oturum Aç
+</a>
 
 </div>
 
 <script>
 
 function openMenu(){
-    document.getElementById("menu").classList.add("active");
+document.getElementById("menu").classList.add("active");
 }
 
 function closeMenu(){
-    document.getElementById("menu").classList.remove("active");
+document.getElementById("menu").classList.remove("active");
 }
 
 </script>
 
 </body>
-</html>
+    </html>
