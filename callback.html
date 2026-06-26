@@ -29,19 +29,6 @@
             width: 80px;
             margin-bottom: 30px;
         }
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #1c1c1c;
-            border-top: 4px solid #ff00ff;
-            border-radius: 50%;
-            margin: 30px auto;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         .success { color: #4caf50; }
         .error { color: #ff3b30; }
         .btn {
@@ -73,6 +60,7 @@
             color: white;
             font-size: 18px;
             margin-bottom: 8px;
+            word-break: break-all;
         }
     </style>
 </head>
@@ -80,22 +68,36 @@
 
 <div class="box" id="content">
     <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
-    <div class="loader"></div>
-    <h2>Giriş Yapılıyor...</h2>
+    <h2>🔄 Yönlendiriliyor...</h2>
     <p style="color:#888;">BLI hesabınız doğrulanıyor.</p>
 </div>
 
 <script>
+    // ============================================
+    // TÜM PARAMETRELERİ AL
+    // ============================================
+    const url = window.location.href;
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
     const error = params.get('error');
+
     const content = document.getElementById('content');
 
+    // ============================================
+    // HATA AYIKLAMA - KONSOLE YAZ
+    // ============================================
+    console.log('========================================');
+    console.log('CALLBACK SAYFASI ÇALIŞTI');
+    console.log('TAM URL:', url);
     console.log('CODE:', code);
     console.log('STATE:', state);
     console.log('ERROR:', error);
+    console.log('========================================');
 
+    // ============================================
+    // REDDET
+    // ============================================
     if (error === 'access_denied') {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
@@ -103,24 +105,44 @@
             <p style="color:#888;">BLI hesabınıza erişim izni vermediniz.</p>
             <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
-    } else if (code) {
+    } 
+    // ============================================
+    // BAŞARILI - CODE VAR
+    // ============================================
+    else if (code && code.length > 0) {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
             <h2 class="success">✅ Giriş Başarılı!</h2>
             <p style="color:#888;">BLI hesabınızla giriş yaptınız.</p>
+            
             <div class="info">
-                <div class="label">Kod</div>
-                <div class="value">${code.substring(0, 15)}...</div>
-                <div class="label">State</div>
+                <div class="label">🔑 Kod</div>
+                <div class="value">${code}</div>
+                <div class="label">📌 State</div>
                 <div class="value">${state || 'Yok'}</div>
             </div>
+            
             <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
-    } else {
+    } 
+    // ============================================
+    // HATA - CODE YOK
+    // ============================================
+    else {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
-            <h2 class="error">⚠️ Geçersiz İstek</h2>
-            <p style="color:#888;">Giriş yapılırken bir hata oluştu.</p>
+            <h2 class="error">⚠️ Hata!</h2>
+            <p style="color:#888;">Code parametresi gelmedi.</p>
+            
+            <div class="info">
+                <div class="label">📎 URL</div>
+                <div class="value" style="font-size:12px;">${url}</div>
+                <div class="label">🔑 Code</div>
+                <div class="value">${code || 'GELMEDİ'}</div>
+                <div class="label">📌 State</div>
+                <div class="value">${state || 'GELMEDİ'}</div>
+            </div>
+            
             <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
     }
