@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORVEX - Giriş Yapılıyor</title>
+    <title>CORVEX</title>
     <link rel="icon" type="image/png" href="file_00000000879c71f79e5a56c96e4d7857.png">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
         body {
             background: #050505;
@@ -17,9 +18,8 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: Arial, sans-serif;
         }
-        .container {
+        .box {
             text-align: center;
             color: white;
             padding: 40px;
@@ -30,8 +30,8 @@
             margin-bottom: 30px;
         }
         .loader {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border: 4px solid #1c1c1c;
             border-top: 4px solid #ff00ff;
             border-radius: 50%;
@@ -42,21 +42,8 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        h2 {
-            color: #fff;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #888;
-            font-size: 16px;
-        }
-        .success {
-            color: #4caf50;
-        }
-        .error {
-            color: #ff3b30;
-        }
+        .success { color: #4caf50; }
+        .error { color: #ff3b30; }
         .btn {
             display: inline-block;
             margin-top: 30px;
@@ -66,12 +53,11 @@
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
-            transition: 0.3s;
         }
         .btn:hover {
             box-shadow: 0 0 30px #ff00ff;
         }
-        .user-info {
+        .info {
             background: #121212;
             padding: 20px;
             border-radius: 16px;
@@ -79,140 +65,62 @@
             text-align: left;
             border: 1px solid #2a2a2a;
         }
-        .user-info .label {
+        .info .label {
             color: #666;
             font-size: 12px;
-            text-transform: uppercase;
         }
-        .user-info .value {
+        .info .value {
             color: white;
             font-size: 18px;
             margin-bottom: 8px;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .status-success {
-            background: #1a3a1a;
-            color: #4caf50;
-        }
-        .status-error {
-            background: #3a1a1a;
-            color: #ff3b30;
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="content">
+<div class="box" id="content">
     <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
-    
     <div class="loader"></div>
-    
-    <h2>🔐 Giriş Yapılıyor...</h2>
-    <p>BLI ESPORTS hesabınız doğrulanıyor.</p>
+    <h2>Giriş Yapılıyor...</h2>
+    <p style="color:#888;">BLI hesabınız doğrulanıyor.</p>
 </div>
 
 <script>
-    // ============================================
-    // URL'den parametreleri al
-    // ============================================
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    const error = urlParams.get('error');
-
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
     const content = document.getElementById('content');
 
-    // ============================================
-    // HATA DURUMU
-    // ============================================
+    console.log('CODE:', code);
+    console.log('STATE:', state);
+    console.log('ERROR:', error);
+
     if (error === 'access_denied') {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
             <h2 class="error">❌ Erişim Reddedildi</h2>
-            <p>BLI ESPORTS hesabınıza erişim izni vermediniz.</p>
-            <div style="margin:20px 0;">
-                <span class="status-badge status-error">❌ Reddedildi</span>
-            </div>
+            <p style="color:#888;">BLI hesabınıza erişim izni vermediniz.</p>
             <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
-    } 
-    // ============================================
-    // BAŞARILI GİRİŞ
-    // ============================================
-    else if (code && state === 'corvex_123') {
+    } else if (code) {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
             <h2 class="success">✅ Giriş Başarılı!</h2>
-            <p>BLI ESPORTS hesabınızla CORVEX'e giriş yaptınız.</p>
-            
-            <div class="user-info">
-                <div class="label">👤 Kullanıcı</div>
-                <div class="value" id="userName">Yükleniyor...</div>
-                
-                <div class="label">📧 E-posta</div>
-                <div class="value" id="userEmail">Yükleniyor...</div>
-                
-                <div style="margin-top:12px;">
-                    <span class="status-badge status-success">✅ Oturum Açık</span>
-                </div>
+            <p style="color:#888;">BLI hesabınızla giriş yaptınız.</p>
+            <div class="info">
+                <div class="label">Kod</div>
+                <div class="value">${code.substring(0, 15)}...</div>
+                <div class="label">State</div>
+                <div class="value">${state || 'Yok'}</div>
             </div>
-            
-            <p style="font-size:12px; color:#444; margin-top:10px;">
-                Kod: ${code.substring(0, 10)}...
-            </p>
-            
-            <a href="/" class="btn">🎮 Oyuna Başla</a>
+            <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
-
-        // ============================================
-        // KULLANICI BİLGİLERİNİ AL (Firestore'dan)
-        // ============================================
-        async function getUserInfo() {
-            try {
-                // Firebase ile kullanıcı bilgilerini al
-                // Burada basitçe localStorage'a kaydedelim
-                const userData = {
-                    name: 'BLI Kullanıcısı',
-                    email: 'kullanici@bli.com'
-                };
-                
-                // localStorage'a kaydet
-                localStorage.setItem('corvex_user', JSON.stringify(userData));
-                localStorage.setItem('corvex_token', code);
-                
-                // Ekranda göster
-                document.getElementById('userName').textContent = userData.name;
-                document.getElementById('userEmail').textContent = userData.email;
-                
-            } catch (error) {
-                console.error('Kullanıcı bilgileri alınamadı:', error);
-                document.getElementById('userName').textContent = 'Hata!';
-                document.getElementById('userEmail').textContent = 'Tekrar dene';
-            }
-        }
-
-        getUserInfo();
-
-    } 
-    // ============================================
-    // GEÇERSİZ İSTEK
-    // ============================================
-    else {
+    } else {
         content.innerHTML = `
             <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
             <h2 class="error">⚠️ Geçersiz İstek</h2>
-            <p>Giriş yapılırken bir hata oluştu.</p>
-            <p style="font-size:14px; color:#666; margin-top:10px;">
-                Code: ${code || 'Yok'}<br>
-                State: ${state || 'Yok'}<br>
-                Error: ${error || 'Yok'}
-            </p>
+            <p style="color:#888;">Giriş yapılırken bir hata oluştu.</p>
             <a href="/" class="btn">Ana Sayfaya Dön</a>
         `;
     }
