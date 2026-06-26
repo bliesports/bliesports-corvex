@@ -6,62 +6,17 @@
     <title>CORVEX</title>
     <link rel="icon" type="image/png" href="file_00000000879c71f79e5a56c96e4d7857.png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .box {
-            text-align: center;
-            color: white;
-            padding: 40px;
-            max-width: 500px;
-        }
-        .logo {
-            width: 80px;
-            margin-bottom: 30px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #050505; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .box { text-align: center; color: white; padding: 40px; max-width: 500px; }
+        .logo { width: 80px; margin-bottom: 30px; }
         .success { color: #4caf50; }
         .error { color: #ff3b30; }
-        .btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 40px;
-            background: #ff00ff;
-            color: #000;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-        }
-        .btn:hover {
-            box-shadow: 0 0 30px #ff00ff;
-        }
-        .info {
-            background: #121212;
-            padding: 20px;
-            border-radius: 16px;
-            margin: 20px 0;
-            text-align: left;
-            border: 1px solid #2a2a2a;
-        }
-        .info .label {
-            color: #666;
-            font-size: 12px;
-        }
-        .info .value {
-            color: white;
-            font-size: 18px;
-            margin-bottom: 8px;
-            word-break: break-all;
-        }
+        .btn { display: inline-block; margin-top: 30px; padding: 14px 40px; background: #ff00ff; color: #000; text-decoration: none; border-radius: 30px; font-weight: bold; }
+        .btn:hover { box-shadow: 0 0 30px #ff00ff; }
+        .info { background: #121212; padding: 20px; border-radius: 16px; margin: 20px 0; text-align: left; border: 1px solid #2a2a2a; }
+        .info .label { color: #666; font-size: 12px; }
+        .info .value { color: white; font-size: 18px; margin-bottom: 8px; word-break: break-all; }
     </style>
 </head>
 <body>
@@ -74,29 +29,24 @@
 
 <script>
     // ============================================
-    // TÜM PARAMETRELERİ AL
+    // TÜM PARAMETRELERİ AL VE KONSOLE YAZ
     // ============================================
-    const url = window.location.href;
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
     const error = params.get('error');
-
     const content = document.getElementById('content');
 
-    // ============================================
-    // HATA AYIKLAMA - KONSOLE YAZ
-    // ============================================
     console.log('========================================');
-    console.log('CALLBACK SAYFASI ÇALIŞTI');
-    console.log('TAM URL:', url);
-    console.log('CODE:', code);
-    console.log('STATE:', state);
-    console.log('ERROR:', error);
+    console.log('✅ CALLBACK SAYFASI ÇALIŞTI');
+    console.log('📎 URL:', window.location.href);
+    console.log('🔑 CODE:', code);
+    console.log('📌 STATE:', state);
+    console.log('❌ ERROR:', error);
     console.log('========================================');
 
     // ============================================
-    // REDDET
+    // REDDET DURUMU
     // ============================================
     if (error === 'access_denied') {
         content.innerHTML = `
@@ -136,7 +86,7 @@
             
             <div class="info">
                 <div class="label">📎 URL</div>
-                <div class="value" style="font-size:12px;">${url}</div>
+                <div class="value" style="font-size:12px;">${window.location.href}</div>
                 <div class="label">🔑 Code</div>
                 <div class="value">${code || 'GELMEDİ'}</div>
                 <div class="label">📌 State</div>
