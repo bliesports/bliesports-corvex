@@ -1,236 +1,267 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORVEX</title>
+    <link rel="icon" type="image/png" href="file_00000000879c71f79e5a56c96e4d7857.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-<title>CORVEX</title>
+        body {
+            background: #050505;
+            overflow-x: hidden;
+        }
 
-<!-- Favicon -->
-<link rel="icon" type="image/png"
-href="file_00000000879c71f79e5a56c96e4d7857.png">
+        /* ÜST MENÜ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            z-index: 1000;
+        }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        .logo {
+            width: 50px;
+        }
 
-<style>
+        .menu-btn {
+            width: 58px;
+            height: 58px;
+            border: none;
+            border-radius: 18px;
+            background: #1c1c1c;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+        /* ANA EKRAN */
+        .hero {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.85));
+            gap: 30px;
+        }
 
-body{
-    background:#050505;
-    overflow-x:hidden;
-}
+        .hero-title {
+            color: white;
+            font-size: 48px;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+        }
 
-/* ÜST MENÜ */
+        .hero-title span {
+            color: #ff00ff;
+        }
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:90px;
-    background:#000;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 25px;
-    z-index:1000;
-}
+        /* OYNA BUTONU */
+        .play-btn {
+            text-decoration: none;
+            background: #000;
+            color: #ff00ff;
+            border: 2px solid #ff00ff;
+            padding: 22px 60px;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px #ff00ff;
+            transition: 0.3s;
+        }
 
-.logo{
-    width:50px;
-}
+        .play-btn:hover {
+            box-shadow: 0 0 20px #ff00ff, 0 0 50px #ff00ff, 0 0 80px #ff00ff;
+        }
 
-.menu-btn{
-    width:58px;
-    height:58px;
-    border:none;
-    border-radius:18px;
-    background:#1c1c1c;
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-}
+        /* ======================================== */
+        /* BLI ESPORTS İLE GİRİŞ BUTONU (YENİ) */
+        /* ======================================== */
+        .bli-login-btn {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            border: 2px solid #4caf50;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
 
-/* ANA EKRAN */
+        .bli-login-btn:hover {
+            background: #4caf50;
+            color: #000;
+            box-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+        }
 
-.hero{
-    width:100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(rgba(0,0,0,.6),
-    rgba(0,0,0,.85));
-}
+        .bli-login-btn i {
+            margin-right: 10px;
+        }
 
-/* OYNA BUTONU */
+        /* MENÜ */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: #121212;
+            transition: .4s;
+            z-index: 9999;
+            overflow-y: auto;
+        }
 
-.play-btn{
-    text-decoration:none;
-    background:#000;
-    color:#ff00ff;
-    border:2px solid #ff00ff;
-    padding:22px 60px;
-    font-size:24px;
-    font-weight:bold;
-    letter-spacing:2px;
-    box-shadow:0 0 20px #ff00ff;
-    transition:0.3s;
-}
+        .mobile-menu.active {
+            right: 0;
+        }
 
-.play-btn:hover{
-    box-shadow:
-    0 0 20px #ff00ff,
-    0 0 50px #ff00ff,
-    0 0 80px #ff00ff;
-}
+        .menu-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+        }
 
-/* MENÜ */
+        .menu-logo {
+            width: 50px;
+        }
 
-.mobile-menu{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:100%;
-    height:100vh;
-    background:#121212;
-    transition:.4s;
-    z-index:9999;
-    overflow-y:auto;
-}
+        .close-btn {
+            width: 58px;
+            height: 58px;
+            border: none;
+            border-radius: 18px;
+            background: #242424;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+        }
 
-.mobile-menu.active{
-    right:0;
-}
+        .search-box {
+            margin: 0 25px;
+            background: #232323;
+            border-radius: 22px;
+            padding: 18px;
+            color: #999;
+            font-size: 28px;
+        }
 
-.menu-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:25px;
-}
+        .menu-item {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 28px;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
 
-.menu-logo{
-    width:50px;
-}
+        .menu-item:hover {
+            color: #ff00ff;
+        }
 
-.close-btn{
-    width:58px;
-    height:58px;
-    border:none;
-    border-radius:18px;
-    background:#242424;
-    color:white;
-    font-size:26px;
-    cursor:pointer;
-}
+        .login-btn {
+            display: block;
+            margin: 30px;
+            background: #2b2b2b;
+            color: white;
+            text-decoration: none;
+            padding: 28px;
+            border-radius: 20px;
+            font-size: 26px;
+            text-align: left;
+        }
 
-.search-box{
-    margin:0 25px;
-    background:#232323;
-    border-radius:22px;
-    padding:18px;
-    color:#999;
-    font-size:28px;
-}
+        .login-btn:hover {
+            background: #3b3b3b;
+        }
 
-.menu-item{
-    color:white;
-    font-size:24px;
-    font-weight:bold;
-    padding:28px;
-    letter-spacing:2px;
-}
-
-.login-btn{
-    display:block;
-    margin:30px;
-    background:#2b2b2b;
-    color:white;
-    text-decoration:none;
-    padding:28px;
-    border-radius:20px;
-    font-size:26px;
-    text-align:left;
-}
-
-</style>
+        .login-btn i {
+            margin-right: 15px;
+            color: #ff00ff;
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-
-<img src="file_00000000879c71f79e5a56c96e4d7857.png"
-class="logo">
-
-<button class="menu-btn" onclick="openMenu()">
-<i class="fas fa-bars"></i>
-</button>
-
+    <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="logo">
+    <button class="menu-btn" onclick="openMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
 </header>
 
 <section class="hero">
+    <div class="hero-title">CORVEX <span>ESPORTS</span></div>
+    
+    <a href="#" class="play-btn">
+        ŞİMDİ OYNA
+    </a>
 
-<a href="#" class="play-btn">
-ŞİMDİ OYNA
-</a>
-
+    <!-- ======================================== -->
+    <!-- BLI ESPORTS İLE GİRİŞ BUTONU -->
+    <!-- ======================================== -->
+    <a href="https://account.bliesports.com.tr/?client_id=Corvex&redirect_uri=https://corvex.bliesports.com.tr/callback.html&state=corvex_123" 
+       class="bli-login-btn">
+        <i class="fas fa-shield-alt"></i>
+        BLI ESPORTS ile Giriş Yap
+    </a>
 </section>
 
 <!-- AÇILAN MENÜ -->
-
 <div class="mobile-menu" id="menu">
+    <div class="menu-top">
+        <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="menu-logo">
+        <button class="close-btn" onclick="closeMenu()">
+            <i class="fas fa-xmark"></i>
+        </button>
+    </div>
 
-<div class="menu-top">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+    </div>
 
-<img src="file_00000000879c71f79e5a56c96e4d7857.png"
-class="menu-logo">
+    <div class="menu-item">OYUN BİLGİLERİ</div>
+    <div class="menu-item">MEDYA</div>
+    <div class="menu-item">HABERLER</div>
+    <div class="menu-item">DESTEK</div>
+    <div class="menu-item">SOSYAL MEDYA</div>
+    <div class="menu-item">ESPOR</div>
+    <div class="menu-item">MAĞAZA</div>
 
-<button class="close-btn" onclick="closeMenu()">
-<i class="fas fa-xmark"></i>
-</button>
-
-</div>
-
-<div class="search-box">
-<i class="fas fa-search"></i>
-</div>
-
-<div class="menu-item">OYUN BİLGİLERİ</div>
-<div class="menu-item">MEDYA</div>
-<div class="menu-item">HABERLER</div>
-<div class="menu-item">DESTEK</div>
-<div class="menu-item">SOSYAL MEDYA</div>
-<div class="menu-item">ESPOR</div>
-<div class="menu-item">MAĞAZA</div>
-
-<a href="https://account.bliesports.com.tr"
-class="login-btn">
-Oturum Aç
-</a>
-
+    <a href="https://account.bliesports.com.tr/?client_id=Corvex&redirect_uri=https://corvex.bliesports.com.tr/callback.html&state=corvex_123" 
+       class="login-btn">
+        <i class="fas fa-shield-alt"></i>
+        BLI ESPORTS ile Giriş Yap
+    </a>
 </div>
 
 <script>
+    function openMenu() {
+        document.getElementById("menu").classList.add("active");
+    }
 
-function openMenu(){
-    document.getElementById("menu")
-    .classList.add("active");
-}
-
-function closeMenu(){
-    document.getElementById("menu")
-    .classList.remove("active");
-}
-
+    function closeMenu() {
+        document.getElementById("menu").classList.remove("active");
+    }
 </script>
 
 </body>
