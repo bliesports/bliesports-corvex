@@ -19,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* ÜST MENÜ */
         header {
             position: fixed;
             top: 0;
@@ -49,7 +48,6 @@
             cursor: pointer;
         }
 
-        /* ANA EKRAN */
         .hero {
             width: 100%;
             height: 100vh;
@@ -183,7 +181,6 @@
             font-weight: bold;
         }
 
-        /* ÇIKIŞ BUTONU */
         .logout-btn {
             display: block;
             margin: 10px 30px 30px 30px;
@@ -246,14 +243,14 @@
     <div class="menu-item">ESPOR</div>
     <div class="menu-item">MAĞAZA</div>
 
-    <!-- GİRİŞ YAPMAMIŞSA -->
+    <!-- GİRİŞ YAPMAMIŞSA BLI BUTONU -->
     <a href="https://account.bliesports.com.tr/?client_id=Corvex&redirect_uri=https://corvex.bliesports.com.tr/callback.html&state=corvex_123" 
        class="bli-login-btn" id="loginBtn">
         <i class="fas fa-shield-alt"></i>
         BLI ile Giriş Yap
     </a>
 
-    <!-- GİRİŞ YAPMIŞSA -->
+    <!-- GİRİŞ YAPMIŞSA KULLANICI BİLGİSİ -->
     <div id="userArea" class="hidden">
         <div class="user-info">
             <i class="fas fa-user-circle"></i>
@@ -276,14 +273,14 @@
         document.getElementById("menu").classList.remove("active");
     }
 
-    // KULLANICI KONTROL
+    // KULLANICI ADI KONTROL
     function checkUser() {
-        const name = localStorage.getItem('corvex_user_name');
+        const name = localStorage.getItem('corvex_user');
         const loginBtn = document.getElementById('loginBtn');
         const userArea = document.getElementById('userArea');
         const userName = document.getElementById('userName');
 
-        if (name) {
+        if (name && name !== 'null' && name !== 'undefined') {
             loginBtn.classList.add('hidden');
             userArea.classList.remove('hidden');
             userName.textContent = name;
@@ -295,30 +292,41 @@
 
     // ÇIKIŞ
     function logoutUser() {
-        localStorage.removeItem('corvex_user_name');
+        localStorage.removeItem('corvex_user');
         localStorage.removeItem('corvex_token');
         checkUser();
         closeMenu();
-        alert('Çıkış yapıldı!');
     }
 
     // ============================================
-    // CALLBACK'TEN GELDİYSE KULLANICIYI KAYDET
+    // CALLBACK'TEN GELDİYSE KULLANICI ADINI KAYDET
     // ============================================
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-    const error = params.get('error');
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const error = urlParams.get('error');
 
-    // Hata yoksa ve code varsa
     if (code && !error) {
-        // Kullanıcı adını sor
-        const name = prompt('BLI hesabınızla giriş yaptınız! Adınızı girin:', '');
-        if (name && name.trim() !== '') {
-            localStorage.setItem('corvex_user_name', name.trim());
-            localStorage.setItem('corvex_token', code);
-            // URL'yi temizle
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
+        // KULLANICI ADINI AL
+        fetch('https://account.bliesports.com.tr/get_user?code=' + code)
+            .then(res => res.json())
+            .then(data => {
+                if (data.name) {
+                    localStorage.setItem('corvex_user', data.name);
+                    localStorage.setItem('corvex_token', code);
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    checkUser();
+                }
+            })
+            .catch(() => {
+                // Hata olursa manuel sor
+                const name = prompt('BLI ile giriş yaptınız! Adınızı girin:');
+                if (name && name.trim() !== '') {
+                    localStorage.setItem('corvex_user', name.trim());
+                    localStorage.setItem('corvex_token', code);
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    checkUser();
+                }
+            });
     }
 
     // SAYFA YÜKLENİNCE
@@ -327,4 +335,4 @@
 </script>
 
 </body>
-</html>
+    </html>
