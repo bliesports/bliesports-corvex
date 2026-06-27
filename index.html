@@ -61,7 +61,6 @@
             gap: 30px;
         }
 
-        /* OYNA BUTONU */
         .play-btn {
             text-decoration: none;
             background: #000;
@@ -140,9 +139,7 @@
             color: #ff00ff;
         }
 
-        /* ======================================== */
-        /* BLI GİRİŞ BUTONU (SADECE MENÜ İÇİN) */
-        /* ======================================== */
+        /* BLI GİRİŞ BUTONU */
         .bli-login-btn {
             display: block;
             margin: 30px;
@@ -164,44 +161,39 @@
             color: #ff00ff;
         }
 
-        /* ======================================== */
-        /* GİRİŞ YAPMIŞ KULLANICI GÖSTERİMİ */
-        /* ======================================== */
-        .user-welcome {
+        /* KULLANICI BİLGİ */
+        .user-info {
             display: block;
             margin: 30px 30px 10px 30px;
             padding: 20px 28px;
             border-radius: 20px;
-            font-size: 24px;
+            font-size: 22px;
             color: white;
             text-align: left;
             border: 2px solid #4caf50;
         }
 
-        .user-welcome i {
+        .user-info i {
             margin-right: 15px;
             color: #4caf50;
         }
 
-        .user-welcome .name {
+        .user-info .name {
             color: #ff00ff;
             font-weight: bold;
         }
 
-        /* ======================================== */
-        /* ÇIKIŞ YAP BUTONU */
-        /* ======================================== */
+        /* ÇIKIŞ BUTONU */
         .logout-btn {
             display: block;
             margin: 10px 30px 30px 30px;
             background: #2b1a1a;
             color: #ff3b30;
-            text-decoration: none;
+            border: 1px solid #ff3b30;
             padding: 18px 28px;
             border-radius: 20px;
             font-size: 20px;
             text-align: left;
-            border: 1px solid #ff3b30;
             cursor: pointer;
         }
 
@@ -213,7 +205,6 @@
             margin-right: 15px;
         }
 
-        /* GİZLEME */
         .hidden {
             display: none !important;
         }
@@ -234,7 +225,7 @@
     </a>
 </section>
 
-<!-- AÇILAN MENÜ -->
+<!-- MENÜ -->
 <div class="mobile-menu" id="menu">
     <div class="menu-top">
         <img src="file_00000000879c71f79e5a56c96e4d7857.png" class="menu-logo">
@@ -255,34 +246,28 @@
     <div class="menu-item">ESPOR</div>
     <div class="menu-item">MAĞAZA</div>
 
-    <!-- ======================================== -->
-    <!-- GİRİŞ YAPMAMIŞSA: BLI ile Giriş Yap -->
-    <!-- ======================================== -->
+    <!-- GİRİŞ YAPMAMIŞSA -->
     <a href="https://account.bliesports.com.tr/?client_id=Corvex&redirect_uri=https://corvex.bliesports.com.tr/callback.html&state=corvex_123" 
-       class="bli-login-btn" id="bliLoginBtn">
+       class="bli-login-btn" id="loginBtn">
         <i class="fas fa-shield-alt"></i>
         BLI ile Giriş Yap
     </a>
 
-    <!-- ======================================== -->
-    <!-- GİRİŞ YAPMIŞSA: KULLANICI BİLGİLERİ -->
-    <!-- ======================================== -->
-    <div id="userLoggedIn" class="hidden">
-        <div class="user-welcome">
+    <!-- GİRİŞ YAPMIŞSA -->
+    <div id="userArea" class="hidden">
+        <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            Hoşgeldin, <span class="name" id="userNameDisplay">Kullanıcı</span>
+            Hoşgeldin, <span class="name" id="userName">Kullanıcı</span>
         </div>
-        <a href="#" class="logout-btn" onclick="logoutUser()">
+        <button class="logout-btn" onclick="logoutUser()">
             <i class="fas fa-sign-out-alt"></i>
             Çıkış Yap
-        </a>
+        </button>
     </div>
 </div>
 
 <script>
-    // ============================================
-    // MENÜ KONTROL
-    // ============================================
+    // MENÜ AÇ/KAPA
     function openMenu() {
         document.getElementById("menu").classList.add("active");
     }
@@ -291,88 +276,55 @@
         document.getElementById("menu").classList.remove("active");
     }
 
-    // ============================================
-    // KULLANICI BİLGİLERİNİ LOCALSTORAGE'DAN AL
-    // ============================================
-    function getUserInfo() {
-        const userData = localStorage.getItem('corvex_user');
-        if (userData) {
-            try {
-                return JSON.parse(userData);
-            } catch {
-                return null;
-            }
-        }
-        return null;
-    }
+    // KULLANICI KONTROL
+    function checkUser() {
+        const name = localStorage.getItem('corvex_user_name');
+        const loginBtn = document.getElementById('loginBtn');
+        const userArea = document.getElementById('userArea');
+        const userName = document.getElementById('userName');
 
-    // ============================================
-    // MENÜYÜ GÜNCELLE
-    // ============================================
-    function updateMenu() {
-        const user = getUserInfo();
-        const loginBtn = document.getElementById('bliLoginBtn');
-        const userSection = document.getElementById('userLoggedIn');
-        const userNameDisplay = document.getElementById('userNameDisplay');
-
-        if (user && user.name) {
-            // Giriş yapmış
+        if (name) {
             loginBtn.classList.add('hidden');
-            userSection.classList.remove('hidden');
-            userNameDisplay.textContent = user.name;
+            userArea.classList.remove('hidden');
+            userName.textContent = name;
         } else {
-            // Giriş yapmamış
             loginBtn.classList.remove('hidden');
-            userSection.classList.add('hidden');
+            userArea.classList.add('hidden');
         }
     }
 
-    // ============================================
-    // ÇIKIŞ YAP
-    // ============================================
+    // ÇIKIŞ
     function logoutUser() {
-        localStorage.removeItem('corvex_user');
+        localStorage.removeItem('corvex_user_name');
         localStorage.removeItem('corvex_token');
-        updateMenu();
+        checkUser();
         closeMenu();
         alert('Çıkış yapıldı!');
     }
 
     // ============================================
-    // CALLBACK'TEN GELEN KULLANICI BİLGİLERİNİ KAYDET
+    // CALLBACK'TEN GELDİYSE KULLANICIYI KAYDET
     // ============================================
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    const error = urlParams.get('error');
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const error = params.get('error');
 
-    // Hata yoksa ve code varsa giriş başarılı
+    // Hata yoksa ve code varsa
     if (code && !error) {
-        // Kullanıcı adını al (callback'ten geliyoruz)
-        // Account'tan gelen kullanıcı adını burada alabilirsin
-        // Şimdilik prompt ile soruyoruz
-        const userName = prompt('BLI hesabınızla giriş yaptınız! Kullanıcı adınızı girin:', 'Kullanıcı');
-        if (userName) {
-            localStorage.setItem('corvex_user', JSON.stringify({ name: userName }));
+        // Kullanıcı adını sor
+        const name = prompt('BLI hesabınızla giriş yaptınız! Adınızı girin:', '');
+        if (name && name.trim() !== '') {
+            localStorage.setItem('corvex_user_name', name.trim());
             localStorage.setItem('corvex_token', code);
             // URL'yi temizle
             window.history.replaceState({}, document.title, window.location.pathname);
-            updateMenu();
         }
     }
 
-    // ============================================
-    // SAYFA YÜKLENDİĞİNDE
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function() {
-        updateMenu();
-    });
-
-    // Sayfa her göründüğünde kontrol et
-    window.addEventListener('pageshow', function() {
-        updateMenu();
-    });
+    // SAYFA YÜKLENİNCE
+    document.addEventListener('DOMContentLoaded', checkUser);
+    window.addEventListener('pageshow', checkUser);
 </script>
 
 </body>
-    </html>
+</html>
